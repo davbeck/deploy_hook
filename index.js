@@ -46,6 +46,7 @@ app.post("/webhooks/github", verifyPostData, (req, res, next) => {
 
   if (req.headers["x-github-event"] === "ping") {
     res.sendStatus(200);
+    res.next();
   } else {
     if (body.ref === WEBHOOK_REF) {
       let deploy = spawn(DEPLOY_SCRIPT, { cwd: DEPLOY_DIRECTORY, shell: true });
@@ -58,6 +59,7 @@ app.post("/webhooks/github", verifyPostData, (req, res, next) => {
       deploy.on("error", err => {
         console.error(err);
         res.sendStatus(500);
+        res.next();
       });
       deploy.on("close", function(code) {
         if (code === 0) {
@@ -65,11 +67,10 @@ app.post("/webhooks/github", verifyPostData, (req, res, next) => {
         } else {
           res.sendStatus(500);
         }
+        res.next();
       });
     }
   }
-
-  return next();
 });
 
 app.listen(PORT);
