@@ -1,0 +1,20 @@
+{
+  "name": "deploy_hook",
+  "version": "1.0.0",
+  "description": "Automatic deploys using GitHub web hooks.",
+  "main": "index.js",
+  "author": "David Beck",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "prettier": "^1.17.1"
+  }
+}
