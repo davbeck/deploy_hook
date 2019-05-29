@@ -12,6 +12,9 @@ const { NODE_ENV, PORT, WEBHOOK_SECRET } = {
   NODE_ENV: "development",
   PORT: 18498,
   WEBHOOK_SECRET: "secret",
+  WEBHOOK_REF: "refs/heads/master",
+  DEPLOY_DIRECTORY: "/home",
+  DEPLOY_SCRIPT: "./deploy.sh",
 
   // this will override any defaults above
   ...process.env,
@@ -44,8 +47,8 @@ app.post("/webhooks/github", verifyPostData, (req, res, next) => {
   if (req.headers["x-github-event"] === "ping") {
     res.sendStatus(200);
   } else {
-    if (body.ref === "refs/heads/master") {
-      let deploy = spawn("./deploy.sh", { cwd: "/root", shell: true });
+    if (body.ref === WEBHOOK_REF) {
+      let deploy = spawn(DEPLOY_SCRIPT, { cwd: DEPLOY_DIRECTORY, shell: true });
       deploy.stdout.on("data", function(data) {
         console.log(data.toString());
       });
