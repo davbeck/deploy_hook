@@ -8,7 +8,7 @@ const app = express();
 // we want to make sure that we can verify the signiture correctly
 app.use(bodyParser.raw({ type: "application/json" }));
 
-const { NODE_ENV, PORT, WEBHOOK_SECRET } = {
+const { NODE_ENV, PORT, WEBHOOK_SECRET, WEBHOOK_REF, DEPLOY_DIRECTORY, DEPLOY_SCRIPT } = {
   NODE_ENV: "development",
   PORT: 18498,
   WEBHOOK_SECRET: "secret",
